@@ -1084,6 +1084,7 @@ const Goodreads = function(credentials, callbackURL) {
     initOAuth,
     getRequestToken,
     getAccessToken,
+    setAccessToken,
     _setOAuthToken,
     getBooksByAuthor,
     getAuthorInfo,
