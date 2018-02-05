@@ -37,6 +37,7 @@ const Goodreads = function(credentials, callbackURL) {
   function setAccessToken(token) {
     ACCESS_TOKEN = token.ACCESS_TOKEN;
     ACCESS_TOKEN_SECRET = token.ACCESS_TOKEN_SECRET;
+    OAUTHENTICATED = true;
   };
 
   /**
@@ -145,7 +146,6 @@ const Goodreads = function(credentials, callbackURL) {
           if (error) reject(new GoodreadsApiError(error.data.split("\n")[0], 'getAccessToken()'));
 
           setAccessToken({ ACCESS_TOKEN: accessToken, ACCESS_TOKEN_SECRET: accessTokenSecret });
-          OAUTHENTICATED = true;
 
           resolve({accessToken: accessToken, accessTokenSecret: accessTokenSecret});
         });
