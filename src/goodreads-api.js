@@ -376,7 +376,7 @@ const Goodreads = function(credentials, callbackURL) {
     .withOAuth(authOptions)
     .build();
 
-    _execute(oAuthPost, req);
+    return _execute(oAuthPost, req);
   }
 
   // TODO
