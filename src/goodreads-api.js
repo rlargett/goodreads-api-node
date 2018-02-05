@@ -367,7 +367,7 @@ const Goodreads = function(credentials, callbackURL) {
 
     const path = `${URL}/shelf/add_to_shelf.xml`;
     const authOptions = _getAuthOptions();
-    const options = { book_id, name: shelf };
+    const options = { book_id: book_id, name: shelf };
 
     const req = Request.builder()
     .withPath(path)
