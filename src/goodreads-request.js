@@ -37,11 +37,8 @@ module.exports = {
     const queryParams = req.getQueryParams();
     const path = buildURL(req.getPath(), queryString.stringify(queryParams))
 
-    console.log("oAuthPost path:", path);
     return new Promise((resolve, reject) => {
       oauth.post(path, access_token, access_token_secret, null, null, (error, response) => {
-        console.log("oAuthPost error:", error);
-        console.log("oAuthPost response:", response);
         if (error) reject(error);
         else resolve(response);
       });

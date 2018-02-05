@@ -80,7 +80,6 @@ const Goodreads = function(credentials, callbackURL) {
 
 
   function _execute(fn, req, responseKey) {
-    console.log("execute:", req);
     return new Promise((resolve, reject) => {
       fn(req)
       .then(parseXML)
