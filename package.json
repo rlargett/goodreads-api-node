@@ -9,6 +9,7 @@
   "main": "dist/goodreads-api-node.umd.js",
   "module": "dist/goodreads-api-node.es.js",
   "scripts": {
+    "prepare": "npm run compile",
     "compile": "rollup -c",
     "test": "mocha"
   },
