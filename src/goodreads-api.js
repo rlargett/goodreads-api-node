@@ -29,14 +29,15 @@ const Goodreads = function(credentials, callbackURL) {
 
 
   /**
-   * _setAccessToken
+   * setAccessToken
    *
-   * @access private
+   * @access public
    * @param {object} token ACCESS_TOKEN and ACCESS_TOKEN_SECRET
    */
-  function _setAccessToken(token) {
+  function setAccessToken(token) {
     ACCESS_TOKEN = token.ACCESS_TOKEN;
     ACCESS_TOKEN_SECRET = token.ACCESS_TOKEN_SECRET;
+    OAUTHENTICATED = true;
   };
 
   /**
@@ -137,10 +138,9 @@ const Goodreads = function(credentials, callbackURL) {
         OAUTH.getOAuthAccessToken(OAUTH_TOKEN, OAUTH_TOKEN_SECRET, 1, (error, accessToken, accessTokenSecret, results) => {
           if (error) reject(new GoodreadsApiError(error.data.split("\n")[0], 'getAccessToken()'));
 
-          _setAccessToken({ ACCESS_TOKEN: accessToken, ACCESS_TOKEN_SECRET: accessTokenSecret });
-          OAUTHENTICATED = true;
+          setAccessToken({ ACCESS_TOKEN: accessToken, ACCESS_TOKEN_SECRET: accessTokenSecret });
 
-          resolve();
+          resolve({accessToken: accessToken, accessTokenSecret: accessTokenSecret});
         });
       } else reject(new GoodreadsApiError("No Request Token found. call getRequestToken()"));
     });
@@ -361,7 +361,7 @@ const Goodreads = function(credentials, callbackURL) {
 
     const path = `${URL}/shelf/add_to_shelf.xml`;
     const authOptions = _getAuthOptions();
-    const options = { book_id, name: shelf };
+    const options = { book_id: book_id, name: shelf };
 
     const req = Request.builder()
       .withPath(path)
@@ -369,7 +369,7 @@ const Goodreads = function(credentials, callbackURL) {
       .withOAuth(authOptions)
       .build();
 
-    _execute(oAuthPost, req);
+    return _execute(oAuthPost, req);
   }
 
   // TODO
@@ -1094,6 +1094,7 @@ const Goodreads = function(credentials, callbackURL) {
     initOAuth,
     getRequestToken,
     getAccessToken,
+    setAccessToken,
     _setOAuthToken,
     getBooksByAuthor,
     getAuthorInfo,
